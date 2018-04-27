@@ -1,0 +1,332 @@
+\documentclass{article}
+\usepackage{amssymb}
+\begin{document}
+	\title{Math 237: Discrete Math}
+	\author{Ramsfield}
+	\date{Last Updated: \today}
+	\maketitle
+		\section[03/27/18]{5.3 Weak Induction}
+		Two harder types of problems that can be solved using weak induction:
+		\subsection{Divisibility Problems}
+		\textbf{EX:} Prove that for all integers $n \geq 0$, $4|(5^n-1)$ \\
+		\textbf{Proof By Induction:} For the base case, we have $5^n-1 =5^0 -1 = 1-1=0$ and $4|0$ ($0=4*k$ $k\in Z$)
+		\\ now assume $n\geq 0$ is arbitrary and $4|(5^n-1)5$ \\\
+		[NTS: $4|5^{n+1}-1$] Then by definition there is an integer $k$ such that $5^n-1=4k$ [NTS: $5^{n+1}-1=4m$ for some $m \in Z$] \\
+		$5^{n+1}-1=5^1*5^n-1=(4+1)5^n-1=4*5^n+5^n-1$ Substitute 4k for $5^n-1$ \\
+		$4*5^n + 4k = 4(5^n+k)$ and $(5^n+k) \in Z$ because $n,k \in Z$ \\
+		$\therefore 4|(5^n-1)$ for all $n\geq 0$
+		\subsection{Proving Inequalities}
+		Facts about inequalities: \\
+		$a\leq a$ for any $a\in R$ \\
+		if $a \leq b$ and $c \in R$, then $a+c \leq b+c$ \\
+		To prove that $2<10$, it suffices to prove that $2<3<7<9<10$. Note that the fact that $2<11$ is true but useless. \\
+		If $a\leq b$ and $c\geq 0$ then $ac\leq bc$
+		\\ \\
+		\textbf{EX:} Prove that for all integers $n\geq 0$, $1+3n\leq 4^n$
+		\textbf{Proof By Induction:} For the base case, $n=0$, then $1+3n = 1+3(0) \leq 4^0 = 1$ or $1\leq 1$ which is true. \\
+		For the inductive hypothesis $n\geq 0$ is arbitrary, and assume $1+3n\leq 4^n$ [NTS: $1+3(n+1)\leq 4^{n+1}$ \\
+		Now $1+3(n+1)=1+3n+3$ which is $\leq 4^n+3$ by the inductive hypothesis. \\
+		$4^{n+1} = 4*4^n = (3+1)4^n = 3*4^n+4^n$ \\
+		$\leq 4^n=3*4^n$\\
+		$= 4^n(1+3)$\\
+		$=4*4^n$\\
+		$=4^{n+1}$\\
+		$\therefore 1+3(n+1)\leq 4^{n+1}$ when $1+3n\leq 4^n$\\
+		\section[03/27/18]{5.4 Strong Induction}
+		Sometimes we need \texttt{Strong Induction} to prove a statement $\forall n\in S[P(n)]$, $S={n_0,n_0+1,...} \in Z$\\
+		This is also a 3 step processes:\\
+		1. Prove the \texttt{base case} by proving that $P(n_0)$ is true.\\
+		2. Assume the inductive hypothesis, which involves taking an arbitrary $n\in S$ and assuming $P(k)$ is true for all $n_0\leq k\leq n$ \\
+		3. Now prove the inductive step, which in this case says $P(n_0)\land P(n_0+1)\land P(n_0+2)\land \cdots \land P(n) \rightarrow P(n+1)$
+		\\ \\
+		\textbf{EX:} Prove that for every integer $n\geq 2$, n can be written as a product of a finite number of primes. \\
+		\textbf{Proof By Induction} For the base case, when $n=2$ we have that $n$ is a "product" of a single prime $2$, so the claim holds. \\
+		Now assume $n\geq 2$ is arbitrary and the claim holds for any integer $2\leq k\leq n$ [NTS: The claim holds for n+1] \\
+		If $n+1$ is prime, then we're done! \\
+		If $n+1$ is not prime (composite), it is composite, so there is some integer $m$ that divides $n+1$ such that $2\leq m\leq n$. Furthermore, $\frac{n+1}{m} \in Z$ and $2\leq \frac{n+1}{m} \leq n$ Therefore both $m$ and $\frac{n+1}{m}$ are a product of a finite number of primes. This means $n+1=\frac{n+1}{m}*m$ is also. \\
+		\\
+		\textbf{EX:} For the recursive sequence, $b_1=4$, $b_2=12$, $b_k=b_{k-1}+b_{k-2}$, $k\geq 3$ \\
+		Prove that $4|b_n \forall n\geq 1$.\\
+		\textbf{Proof By Induction:} For the base case, note that $b_1=4=4*1$ and $b_2=12=4*3$ so $4|b_1$ and $4|b_2$\\
+		For the inductive hypothesis, assume $n\geq 3$ and that $4|b_k$ for all $1\leq k\leq n-1$ [NTS: $4|b_n$]\\
+		Then by definition $b_n=b_{n-1}+b_{n-2}$ and since $n\geq 3$, we know that $1\leq n-2\leq n-1$ and $1\leq n-1\leq n-1$ Therefore, by the inductive hypothesis we have $4|b_{n-2}$ and $4|b_{n-1}$. So $b_{n-2}=4q$ for some $q\in Z$ and $b_{n-1}=4s$ for some $s\in Z$. Meaning $b_n=4q+4s$, $b_n=4(q+s)$ and $(q+s)\in Z$ because $q,s\in Z$\\
+		\boldmath $\therefore 4|b_n$ while $n\geq 3$\unboldmath\\
+		\\
+		\textbf{EX:} Prove that $\forall n\geq 1$, $C_n$ is even where $C_1=4$, $C_2=10$ and $C_n=C_{n-1}+2C_{n-2}$ $\forall n\geq 3$\\
+		\textbf{Proof by Strong Induction:} Base case: Check everything up to the base case. For $n=1$ $C_1=4$ and $4$ is even because $4=2(2)$. For $n=2$ $C_2=10$ and $10=2(5)$. For $n=3$ $C_3=10+2(4)=2(5+4)$ which is even.\\
+		Inductive Hypothesis: Let $n\geq 3$ be arbitrary and assume $C_k$ is even whenever $1\leq k \leq n$\\
+		Inductive Step: [NTS: $C_{n+1}$ is even] Then $C_{n+1}=C_{n}+2C_{n-1}$ By the inductive hypothesis, $C_n$ and $C_{n-1}$ are even. $\therefore C_n = 2s$ and $C_{n-1} = 2t$ for some $s,t\in\mathbb{Z}$\\
+		$\therefore C_{n+1} = 2(s+2t)$ which is even
+				
+		\section[03/29/18]{6.1 Set Theory}
+		In Set Theory, we always have a \textbf{universal set} that we consider to be the set containing all sets under consideration. We will denote our universal set by $X$ (the book uses $U$). Given sets $A$ and $B$ inside $X$, the basic notion is that of \textbf{set containment}. We say $A$ is a \textbf{subset} of $B$ and write $A\subseteq B$ if the following holds:
+		$$\forall x\in X[x\in A \Rightarrow x\in B]$$
+		\\
+		What does it mean if $A$ is not a subset of $B$? In this case we write $A\nsubseteq B$ and this is true if the negation of the previous statement holds.\\
+		Make sure to remember $\sim (\forall x [P(x) \Rightarrow Q(x)])\equiv \exists x[P(x)\wedge (~Q(x))]$\\
+		For set theory we can write:
+		$$\exists x\in X[x\in A \wedge x \notin B]$$
+		We say sets $A$ and $B$ are \textbf{equal} and write $A=B$ if $A\subseteq B$ and $B\subseteq A$.\\
+		Now we want to find the analogues of $\vee$, $\wedge$, $\sim$ in set theory.\\
+		 The analogue of $\wedge$ is \textbf{intersection}, and for sets $A$ and $B$ the intersection of $A$ and $B$ is the set 
+		$$A\cap B = {x\in X|x\in A \wedge x\in B}$$\\
+		The analogue for $\vee$ is \textbf{union}. The union of $A$ and $B$ is the set 
+		$$A\cup B = {x\in X|x \in A \vee x\in B}$$
+		The analogue of $\sim$ is the \textbf{complement}. The complement of $A$ (in $X$) is the set
+		$$A^c={x\in X|x\notin A}$$
+		There is also refinement of this called the \textbf{relative complement} or \textbf{set difference}. Given sets $A$ and $B$, the complement of $A$ in $B$ is the set 
+		$$B-A={x\in B| x\notin A}$$
+		Now that we have our "dictionary" between logic and set theory, we see that e.g. every logical equivalence in Theorem 2.1.1 on page 35 is a statement about set equality:\\
+		\textbf{EX:} $\sim (\sim P) \equiv P$ (Double Negation)
+		looks like $(A^{c^c})=A$ This is the \textbf{Double Complement Law}\\
+		\textbf{EX:} De Morgan's Law says $\sim (P\vee Q)\equiv (\sim P)\wedge (\sim Q)$ so in set theory it looks like 
+		$$(A\cup B)^C= A^c\cap B^c$$
+		This is one of \textbf{De Morgan's Laws} for sets\\
+		\underline{Read page 342 to review \textbf{interval notation} $((a,b),\lbrack a,b\rbrack,etc)$}\\
+		The \textbf{empty set} $\emptyset $ is the unique subset of $X$ that contains no elements.\\
+		Facts:\\
+		$X^c=\emptyset$\\
+		$\emptyset ^c=X$\\
+		$\emptyset\subseteq A$ for any $A\subseteq X$\\
+		$A\subseteq A$ for any $A\subseteq X$\\
+		
+		Two sets $A$ and $B$ are \textbf{disjoint} if $A\cap B = \emptyset$\\
+		The \textbf{power set} of a set $A$ is the set $P(A)={B|B\subseteq A}$\\
+		\textbf{EX:} $P(\emptyset )= \lbrace\emptyset\rbrace$\\
+		\textbf{EX:} $P(\lbrace 1,2,3\rbrace )=\lbrace\emptyset ,\lbrace 1\rbrace ,\lbrace 2\rbrace ,\lbrace 3\rbrace ,\lbrace 1,2\rbrace ,\lbrace 1,3\rbrace ,\lbrace 2,3\rbrace ,\lbrace 1,2,3\rbrace\rbrace$\\ \\
+		\underline{\textbf{Prove:} if $A$ has $n$ elements, $P(a)$ has $2^n$ elements}\\
+		\textbf{Proof By Induction}: Base case, $P(n=0)$ or set is $P(\emptyset )$\\
+		$P(\emptyset )= \lbrace \emptyset \rbrace = 1 = 2^n = 2^0 = 1$\\
+		\texttt{Inductive Hypothesis}: Assume $P(k)=2^k$ for all $0\leq k\leq n-1$ [NTS: $P(k+1)=2^{k+1}]$\\
+		$P(k+1)=P(k)+P(1)=2^k*2^1$ For the left side\\
+		$2^{k+1} = 2^k*2^1$\\
+		$\therefore P(n)=2^n$ 
+		\\
+		\\
+		\textbf{\underline{Quiz on Thurs: 4.4, 4.6, 5.1}}\\
+		\section[04/03/18]{Set Notation, cont.}
+		\subsection*{6.2 Set Proofs}
+		\textbf{EX:} Prove that if $A$,$B$,$C$ are sets and $A\subseteq B$, then $A\cap C\subseteq B\cap C$\\
+		\textbf{Direct Proof}: Assume $A,B,C$ are sets and $A\subseteq B$ [NTS: $A\cap C\subseteq B\cap C$]\\
+		Assume $x\in A\cap C$ [NTS: $x\in B\cap C$]\\
+		Then $x\in A$ and $x\in C$. [NTS: $x\in B$ and $x\in C$] but since, if $x\in C$, then $x\in C$ we only need to show that if $x\in A$, $x\in B$\\
+		Since $x\in A$ and $A\subseteq B$, $x\in B$\\
+		and since $x\in B$ and $x\in C$, $x\in B\cap C$\\
+		\\
+		\textbf{Claim:} Prove that for any sets $A,B$, if $A\subseteq B$, then $B^c\subseteq A^c$\\
+		\textbf{Direct Proof by Contradiction:} Assume $A,B$ are sets and $A\subseteq B$.[NTS: $B^c\subseteq A^c$]\\
+		Assume $x\in B^c$\\
+		By definition of complement, if $x\in B^c, x\notin B$\\
+		Suppose for the sake of contradiction $x\in A$. Then $x\in B$ since $A\subseteq B$. This is a contradiction since we know $x\notin B$ $\therefore x\notin A$
+		By definition if $x\notin A, x\in A^c$\\
+		$\therefore$ if $x\in B^c$ then, $x\in A^c$ which is the definition of a subset.\\
+		$\therefore B^c\subseteq A^c$
+		\section[04/05/18]{More Set Proofs}
+		\textbf{Claim:} Prove that for any sets $A,B$, if $A\subseteq B$, then $B^c\subseteq A^c$\\
+		\textbf{Direct Proof by Contrapositive:} Assume $A,B$ are sets and $A\subseteq B$.[NTS: $B^c\subseteq A^c$]\\
+		Then for every $x\in X$, if $x\in A$ then $x\in B$\\
+		Taking the contrapositive, we see that for all $x\in X$, if $x\notin B$ then $x\notin A$\\
+		By definition of complement, this says for any $x\in X$, if $x\in B^c$ then $x\in A^c$\\
+		$\therefore B^c\subseteq A^c$\\ \\
+		\textbf{\underline{Stronger Theorem:}}\\
+		For all sets $A,B$, $A\subseteq B \iff B^c\subseteq A^c$\\
+		\textbf{Proof:} $A\subseteq B \iff \forall x\in X\lbrack x\in A \rightarrow x\in B\rbrack$\\
+		$\iff \forall x\in X\lbrack x\notin B \rightarrow x\notin A\rbrack$\\
+		$\iff \forall x\in X\lbrack x\in B^c \rightarrow x\in A^c\rbrack$\\
+		$\iff B^c\subseteq A^c$\\ \\
+		\textbf{EX: \underline{Prove that for any sets $A,B,C$, $A\times (B\cup C) = (A\times B)\cup (A\times C)$}}\\
+		\textbf{Proof:} Let $A,B,C$ be arbitrary sets [NTS: $A\times (B\cup C)\subseteq(A\times B)\cup (A\times C)$ and $(A\times B)\cup (A\times C) \subseteq A\times (B\cup C)$]\\
+ 		\underline{$\subseteq$} Let $(x,y)\in A\times(B\cup C)$. Then $x\in A$ and $y\in B\cup C$. If $y\in B$ then $(x,y)\in A\times B$\\
+ 		Which means that $(x,y)\in (A\times B)\cup (A\times C)$\\
+ 		Similarly, if $y\in C$, then $(x,y)\in A\times C$, so $(x,y)\in(A\times B)\cup(A\times C)$\\
+ 		$\therefore A\times(B\cup C)\subseteq(A\times B)\cup(A\times C)$\\
+ 		\underline{$\supseteq$}: Assume $(x,y)\in (A\times B)\cup (A\times C)$\\
+ 		Then $(x,y)\in A\times B$ or $(x,y)\in A\times C$\\
+ 		If $(x,y)\in A\times B$ then $x\in A$ and $y\in B$\\
+ 		Therefore $y\in B\cup C$ so $(x,y)\in A\times(B\cup C)$\\
+ 		Similarly, if $(x,y)\in A\times C$ then $x\in A$ and $y\in C$ so $y\in B\cup C$ and $(x,y)\in A\times(B\cup C)$\\
+ 		$\therefore(A\times B)\cup(A\times C)\subseteq A\times(B\cup C)$\\
+ 		$\therefore A\times(B\cup C) = (A\times B)\cup (A\times C)$\\
+ 		\\
+ 		\textbf{\underline{Same theory, using if and only if statements}}\\
+ 		$(x,y)\in A\times(B\cup C)\iff (x\in A)\land(y\in B\cup C)$ (The definition of cartesian product)\\
+ 		$\iff (x\in A)\land\lbrack(y\in B)\lor(y\in C)\rbrack$(Definition of Union)\\
+ 		$\iff ((x\in A)\land (x\in B)\lor((x\in A)\land(x\in C))$(By the distributive law)\\
+ 		$\iff \lbrack(x,y)\in A\times B\rbrack \lor \lbrack(x,y)\in A\times C\rbrack$(Definition of Cartesian product)\\
+ 		$\iff (x,y)\in (A\times B)\cup(A\times C)$(By definition of union)\\
+ 		\\ \\
+ 		\underline{\textbf{Theorem 6.2.1}}\\
+ 		For all sets $A,B$\\
+ 		\textbf{1.} $A\cup B\subseteq A$ and $A\cup B\subseteq B$\\
+ 		\textbf{2.} $A\subseteq A\cup B$ and $B\subseteq A\cup B$\\
+ 		\textbf{3.} If $A\subseteq B$ and $B\subseteq C$, then $A\subseteq C$
+ 		\subsection*{6.3 Disproof and Algebraic Proofs}
+ 		\textbf{EX:} \underline{Fine a counterexample to disprove this claim}\\
+ 		For all sets $A,B,C$:
+ 		$$(A\cap B)\cup C=A\cap(B\cup C)$$
+ 		\textbf{Counterexample:} $A = \{1,2,3\}$ $B=\{4\}$ $C=\{4,5,6\}$\\
+ 		$(A\cap B)\cup C = \emptyset \cup C = C$\\
+ 		$A\cap(B\cup C) = A\cap C = \emptyset$ But $C\neq \emptyset$\\
+ 		So, $(A\cap B)\cup C\neq A\cap(B\cup C)$
+ 		\section[04/10/18]{6.3 Continued}
+ 		The \underline{symmetric difference} of $A$ and $B$ is the set $A\Delta B=(A-B)\cup (B-A)$, or everything that's in A and not in B, and everything that's in B and not in A.\\
+ 		$A\Delta B\equiv (A\cup B)-(A\cap B)$\\
+ 		\textbf{EX:} Prove that for any set $A$, $A\Delta A=\emptyset$\\
+ 		\textbf{Proof:} By definition, $A\Delta A = (A-A)\cup(A-A)$\\
+ 		This reduces to $A-A$ since for any set $X$, $X\cup X = X$\\
+ 		And $x\in (A-A)\iff x\in A\land x\notin A$ but this is a contradiction! $\therefore$ there is no such x, i.e. $A-A=\emptyset$\\
+ 		$\therefore A\Delta A = \emptyset$
+ 		\subsection{Chapter 7}
+ 		\subsection{7.1 Definitions of functions}
+ 		Recall that a relation $R\subseteq A\times B$ is a function from $A$ to $B$ if\\
+ 		1) $\forall a\in A \exists b\in B \lbrack (a,b)\in R\rbrack$\\
+ 		2) $\forall a\in A\lbrack(a,b_1)\in R\land(a,b_2)\in R\rightarrow b_1=b_2\rbrack$\\
+ 		In this case, we normally write $T$ as $F:A\rightarrow B$ and write $b=f(a)$ when $(a,b)\in R$\\
+ 		$A$ is the \underline{domain} of $F$.\\
+ 		$B$ is the \underline{co-domain} of $F$.\\
+ 		The \underline{range} of $F$ is the set $F(A)=\{F(a)\in B|a\in A\}\subseteq B$\\
+ 		Given any $b\in B$ the \underline{Inverse Image} or \underline{preimage} of $b$ under $F$ is the set $F^{-1}(b)=\{a\in A|f(a)\in B\}$\\
+ 		Note that if $f(A)\neq B$ then for any $b\in B-F(a)$, $f^{-1}(b)=\emptyset$\\
+ 		\textbf{EX:} let $D=\{finite\ subsets\ of\ \mathbb{N}\}$ and define $T:\mathbb{N}\rightarrow D$, $T(n)=\{positive\ divisors\ of\ n\}$\\
+ 		For instance, $T(5)=\{1,5\}$\\
+ 		$T(24)=\{1,2,3,4,6,8,12,24\}$\\
+ 		$T^{-1}(1,5)=\{5\}$\\
+ 		$T^{-1}(1,2,3)=\{\emptyset\}$\\
+ 		\textbf{EX:} Let $A=\{1,2,3,4,5\}$ and define
+ 		$$F: \wp(A)\rightarrow \mathbb{Z}$$\\
+ 		$F(x)=\{0\ if\ x\ contains\ even\ elements\ 1\ if\ x\ contains\ odd\ elements\}$\\
+ 		$F(A)=1$ because $A$ contains 5 elements and 5 is odd\\
+ 		$F(\emptyset)=0$ because $\emptyset$ contains 0 elements and 0 is even\\
+ 		The range $F$ is $F(\wp(A))=\{0,1\}$\\
+ 		$F^{-1}(2)=\emptyset$
+ 		\section[04/12/18]{7.2 1-1/Onto functions}
+ 		A function $f:A\rightarrow B$ is \underline{1-1 (one to one)} if the following holds:\\
+ 		If whenever $f(x)=f(y)$ in $B$, $x=y$ in $A$\\
+ 		$f$ is \underline{onto} $B$ if for any $b\in B$ there exists an $a\in A$ such that $b=f(a)$\
+ 		You can think of One to One as the opposite of the Existance axiom for functions (There is only one y for every x)\\
+ 		You can think of onto as the Uniqueness axiom opposite (There is a y for every x)\\ \\
+ 		\textbf{EX:} Prove that the function $F:\mathbb{R}\rightarrow\mathbb{R},\ f(x)=3x+2$ is 1-1 and onto $\mathbb{R}$\\
+ 		A test to help figure this out: Graph the function. Use a horizontal line to make sure it only intersects at one point\\
+ 		\textbf{Proof:} One to One: Suppose $x,y\in\mathbb{R}$ such that $f(x)=f(y)$ [NTS: x=y]\\
+ 		Then by definition $3x+2=3y+2 ==3x=3y==x=y$\\
+ 		$\therefore f$ is one to one.\\
+ 		Onto: let $y\in\mathbb{R}$[NTS $\exists x\in\mathbb{R}$ such that $f(x)=y$]\\
+ 		\texttt{Scratch Work} Need $x\in\mathbb{R}$ such that $y=f(x)=3x+2$ Solve for x. $y=3x+2=>\frac{y-2}{3}=x$\\
+ 		let $x=\frac{y-2}{3}$. Then $f(x)=f(\frac{y-2}{3})=3(\frac{y-2}{3})+2=y-2+2=y$\\
+ 		$\therefore f$ is onto.\\ \\
+ 		\textbf{Exercise:} Let $f: \mathbb{Z} \rightarrow \mathbb{Z}$ and $f(x)=3x+2$\\
+ 		Prove or disprove this is 1-1 and onto\\
+ 		\textbf{1-1:} Suppose $x,y\in\mathbb{Z}$ and we need to show by definition that $f(x)=f(y)$ implies $x=y$\\
+ 		$3x+2=3y+2 =>3x=3y=> x=y$\\
+ 		$\therefore f$ is one to one\\
+ 		\textbf{Onto:} By definition of onto, $\forall y\in\mathbb{Z} \exists x\in\mathbb{Z}$ such that $f(x)=y$. So to disprove, we need to show that $\exists y\in\mathbb{Z}\forall x\in\mathbb{Z}$ such that $f(x)\neq y$. Let $y=1$ this means $1=3x+2$ which means $3x=-1$ and $x=\frac{-1}{3}$ but $\frac{-1}{3}\notin\mathbb{Z}$ and $1\in\mathbb{Z}$\\
+ 		$\therefore f$ is not onto\\
+ 		The range is actually equal to: $\{3k+2|k\in\mathbb{Z}\}\notin\mathbb{Z}$ 
+ 		\section[04/17/18]{7.3 Composition and inverses}
+ 		Quiz topics: 5.2, 5.3, 5.4 \textbf{INDUCTION} 2 proof problems. 1 Weak induction 1 strong induction\\
+ 		\\
+	 	Let $F:X\rightarrow Y$, $g: Y'\rightarrow Z$ be functions such that $F(X)\subseteq Y'\subseteq Y$\\
+	 	The \underline{composition} of $g$ with $F$ is the function $goF: X\rightarrow Z$, $(goF)(x)=g(F(x))$\\
+	 	\textbf{EX:} $F:\mathbb{R}\rightarrow\mathbb{R}$ such that $F(x)=2x+4$ and $g:\mathbb{R}\rightarrow\mathbb{R}$ such that $g(x)=x^2=1$\\
+	 	Then $goF: \mathbb{R}\rightarrow\mathbb{R}$, $(goF)(x)=g(F(x))$, $g(2x+4)=(2x+4)^2-1=4x^2+16x+15$ In this case, you can actually compose the other way:\\
+	 	$Fog:\mathbb{R}\rightarrow\mathbb{R}$ such that $(fog)(x)=f(g(x))= f(x^2-1)=2(x^2-1)+4=2x^2+2$ Note that $foG$ is not equal to $goF$, in other words, composition is not commutative. And usually is not even defined both ways\\
+		 \\
+		 What function properties are preserved under composition?\\ 
+		 \textbf{EX:} if $F:X\rightarrow Y$ and $g:Y\rightarrow Z$ are 1-1 functions, is $gof: X\rightarrow Z$ also 1-1?\\
+		 What would a proof look like?\\
+		 Assume $x,y\in X$ such that $gof(x) = gof(y)$ [NTS: $x=y$]\\
+		 By definition, $g(f(x)) = g(f(y))$. Since $g$ is 1-1, this means $f(x)=f(y)$ and since $f$ is 1-1, $x=y$\\
+		 $\therefore gof $ is 1-1\\
+		 \\
+		 This means that 1-1 is conserved in composition\\
+		 What about onto?\\
+		 \\
+		 \textbf{EX:} If $F:X\rightarrow Y$, $g:Y\rightarrow Z$ and both are onto, is $goF: X\rightarrow Z$ onto?\\
+		 Recall that $F:X\rightarrow Y$ is onto $Y$ if $\forall y\in Y\exists x\in X\lbrack y=F(x)\rbrack$\\
+		 if $goF$ is onto, then we need to show that for any $z\in Z$ there exists an $x\in X$ such that $z=goF(x)$\\
+		 Since $g$ is onto, $z=g(y)$ for some $y\in Y$. but $F$ is also onto, so $y=f(x)$ for some $x\in X$.\\
+		 $\therefore z=g(y)=g(f(x))$\\
+		 $\therefore goF$ is onto $Z$\\
+		 This means that onto is conserved in composition
+		 \\ \\ 
+		 Given a set $X$ that is nonempty, the \underline{Identity function} on $X$ is $I_x:X\rightarrow X$ such that $I_x(x)=x$ $\forall x\in X$\\
+		 Note that if $f: X\rightarrow Y$ then $foI_x=f$ and $I_yof = f$\\
+		 \\
+		 If $f:X\rightarrow Y$ is both 1-1 and onto, then $f$ is called a \underline{bijection} or is said to be \underline{bijective}\\
+		 In this case, there is a unique function $F^{-1}:Y\rightarrow X$ called the \underline{inverse} of $f$ such that $F^{-1}(y)=x\iff F(x)=y$\\
+		 I.E. $FoF^{-1}=I_y$ and $F^{-1}oF=I_x$\\
+		 \\
+		 \textbf{EX:} $f:\mathbb{R}\rightarrow\mathbb{R}$ such that $f(x)=2x-1$. This is a bijection. Find the inverse function: $F^{-1}$\\
+		 Set $y=2x-1$ and then solve for $x$. So $x=\frac{y+1}{2}$\\
+		 Reverse the roles of $x$ and $y$ to get $F^{-1}(x)=\frac{x+1}{2}$\\
+		 \underline{Check:} $fof^{-1}(x)=f(f^{-1}(x))$\\
+		and the opposite
+		\section[04/19/28]{7.4: Cardinality}
+		\textbf{Cardinal Numbers} $=0,1,2,3,...,n,...,\aleph_0,\aleph$\\
+		The \underline{cardinal numbers} are an ordered set that keep track of the possible sizes of sets. We will write $|A|$ for the \underline{Cardinality} of the set $A$. $|\emptyset |=0$ by definition and for each $n\in\mathbb{N}$, $|\{1,2,3,...,n\}|=n$ by definition. So a set $A$ is \underline{finite} if it is in bijection with the set $\{1,2,3,...,n\}$ for some $n\in\mathbb{N}$ or $A=\emptyset$.\\
+		If $A$ is not finite, then $A$ is \underline{Infinite}.\\
+		\textbf{EX:} $\mathbb{N}$ is an infinite set by the \underline{Archimedian principle} which says there is no largest natural number. $\therefore \nexists$ bijection $F: \mathbb{N}\rightarrow\{1,2,3,...,n\}$ for any $n\in\mathbb{N}$.\\
+		We set $|\mathbb{N}|=\aleph_0=$ "Aleph nought"\\
+		\\
+		In general, we say two non-empty sets have the same \underline{cardinality} if $\exists$ bijection $F:A\rightarrow B$\\
+		\textbf{EX:} $|\mathbb{Z}| =|\mathbb{N}|$\\
+		We need a bijection from $\mathbb{Z}$ to $\mathbb{N}$. Say $F:\mathbb{Z}\rightarrow\mathbb{N}$\\
+		$\mathbb{Z} = ...,-3,-2,-1,0,1,2,3,...$\\
+		$\mathbb{N} =1,2,3,4,5,6,...$\\
+		$f(0)=1,f(1)=2,f(-1)=3,f(2)=4,f(-2)=5,f(3)=6,...$\\
+		\\
+		For the Real Numbers, there is infinitely many numbers between each integer. But we still do not achieve a larger infinite.\\
+		\textbf{EX:} $|\mathbb{Q}|=|\mathbb{Z}\times\mathbb{Z}|=|\mathbb{N}|$\\
+		\textbf{Idea:} To see that $\mathbb{N}$ and $\mathbb{Q^+}$= positive rational are in bijections, you can make a one to one and onto function.\\
+		"Punchline"\\
+		\textbf{EX:} $|\mathbb{R}|\neq|\mathbb{N}|$ We can show that $|(0,1)|\neq|\mathbb{N}$ using \underline{Cantor's Diagmelization method}\\
+		Suppose $|(0,1)|=|\mathbb{N}$. then $\exists$ a bijection $f:\mathbb{N}\rightarrow (0,1)$ so we can list all $r\in(0,1)$ as a sequence. $a_1=f(1)$, $a_2=f(2)$...\\
+		Using decimal notation, we have the following. $a_1=0.d_{n1}d_{n2}....d_{nn}$\\
+		Let $c=0.c_1c_2c_3c_4$ 
+		\section[04/24/18]{Ch 8: Equivalence Relations}
+		\subsection*{8.1 Intro}
+		Again, recall that a relation from a set $A$ to a set $B$ is any subset $R\subseteq A\times B$. Now given such an $R$, the \underline{inverse relation} for $R$ is $R^{-1}=\{(b,a)\in B\times A| (a,b)\in R\}\subseteq B\times A$\\ \\
+		\textbf{EX:} $A = \{1,2,3\} B=\{a,b,c\}$\\
+		$R = \{(2,c),(1,b),(3,b)\}\subseteq A\times B$\\
+		this means that $R^{-1}=\{(c,2),(b,1),(b,3)\}\subseteq B\times A$\\
+		This $R^{-1}$ is not a function because it violates the uniqueness axiom, but it is still a relation from $B\times A$.\\
+		\\
+		If $A = B$, then a relation $R\subseteq A\times A$. This is called a \underline{relation on $A$}
+		\subsection*{8.2 Equivalence relations}
+		Given a relationship $R\subseteq A\times A$ on a set $A$, there are 3 properties to consider:\\
+		\texttt{1. Reflexivity} $R$ is reflexive if $(a,a)\in R$ for every $a\in A$\\
+		$R$ is reflexice is the \underline{diagonal} of $A$, $\{(a,a)\in A\times A | a\in A\}$ is contained in $R$\\
+		\texttt{2. Symmetric} $R$ is \underline{symmetric} if for any $(a,b)\in A$, $(a,b)\in R\iff (b,a)\in R$\\
+		\texttt{3. Transitive} $R$ is \underline{transitive} if for any $a,b,c\in A$ if $(a,b)\in R\land (b,c)]in R\rightarrow (a,c)\in R$\\
+		\\
+		A relation $R\subseteq A\times A$ on a set $A$ satisfying all three properties is called an \underline{equivalence relation} on $A$.\\ \\
+		\textbf{EX:} $A=\{1,2,3\} R =\{(1,2),(2,1),(1,1)\}\subseteq A\times A$\\
+		\texttt{1.} Is $R$ reflexive?\\
+		No, $(1,1)\in R$ but $(2,2),(3,3)\notin R$\\
+		\texttt{2.} Is $R$ symmetric?\\
+		Yes, $(1,2)$ is symmetric to $(2,1)$ and $(1,1)$ is symmetric with itself\\
+		\texttt{3.} Is $R$ transitive?\\
+		No $(2,1),(1,2)\in R$ but $(2,2)\notin R$ \\ \\
+		\textbf{EX:} $A = \mathbb{R}, R=\{(a,b)\in\mathbb{R}\times\mathbb{R} | a=b\}$\\
+		Then $R=\{(a,a)|a\in\mathbb{R}\}$ So it's just the diagonal of $\mathbb{R}$\\
+		\texttt{1.} Is $R$ reflexive?\\
+		Yes! Basically, by definition.\\
+		\texttt{2.} is $R$ symmetric?\\
+		Yes!\\
+		\texttt{3.} is $R$ transitive?\\
+		Yes! Because for any $(a,b)\in R$ then $a = b$, and for any $(b,c)\in R$ then $b=c$ $\therefore a=c$ and $(a,a)\in R$\\
+		The diagonal will always give you an equivalence relation.\\
+		\\
+		\textbf{EX:} Let $A$ be a set and define a relation $R\subseteq \wp(A)\times\wp(A)$ by\\
+		$(X,Y)\in R\iff X\subseteq Y$\\
+		\texttt{1.} Is $R$ reflexive?\\
+		$\lbrack$ NTS: $\forall X\subseteq A\lbrack (X,X)\in R\rbrack\rbrack$\\
+		let $X\in\wp(A)$, so that $X\subseteq A$. Then $(X,X)\in R\iff X\subseteq X$\\
+		since every set is a subset of itself, this is true for all $X\in\wp(A)$ $\therefore R$ is reflexive.\\
+		\texttt{2.} is $R$ symmetric?\\
+		$\lbrack$ NTS: for any $X,Y\in\wp(A), (X,Y)\in R\iff (Y,X)\in R\rbrack$\\
+		Suppose $X,Y\in\wp(A)$ such that $(X,Y)\in R$. By definition, $X\subseteq Y\subseteq A$. Is $(Y,X)\in R$? This is true only if $Y\subseteq X$. This is not true in general. In fact, $X\subseteq Y\land Y\subseteq X \iff X = Y$. So, unless $A=\emptyset$, $R$ is not symmetric.
+		\texttt{3.} Is $R$ transitive?\\
+		If $(X,Y)\in R$ and $(Y,Z)\in R$ then $X\subseteq Y$ and $Y\subseteq Z$. This means that $X\subseteq Z$. $\therefore (X,Z)\in R$
+		\section[04/26/18]{}
+\end{document}
